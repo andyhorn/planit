@@ -14,4 +14,8 @@ export class Room {
 
     @OneToMany(() => User, user => user.room)
     users: User[];
+
+    public isActive(): boolean {
+        return this.users.some(user => user.active);
+    }
 }

@@ -6,11 +6,13 @@ import { RoomsController } from './controllers/rooms.controller';
 import { RoomCodeService } from './services/room-code.service';
 import { RoomsGateway } from './gateways/rooms.gateway';
 import { UsersModule } from 'src/users/users.module';
+import { MessagesModule } from 'src/messages/messages.module';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Room]),
-        UsersModule
+        UsersModule,
+        MessagesModule
     ],
     providers: [RoomsService, RoomCodeService, RoomsGateway],
     controllers: [RoomsController]

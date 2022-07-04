@@ -60,4 +60,11 @@ export class UsersService {
         const user = await this.find(id);
         await this.usersRepository.remove(user);
     }
+
+    public async removeAll(ids: number[]): Promise<void> {
+        await this.usersRepository.createQueryBuilder()
+            .delete()
+            .whereInIds(ids)
+            .execute();
+    }
 }

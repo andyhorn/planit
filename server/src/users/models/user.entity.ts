@@ -17,6 +17,11 @@ export class User {
     email: string;
 
     @Column({
+        default: true
+    })
+    active: boolean;
+
+    @Column({
         nullable: true
     })
     socketId: string;
