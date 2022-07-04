@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { DatabaseConfig } from "./database.config";
+import { TypeOrmConfigService } from "./typeorm.service";
 
 @Module({
-    providers: [DatabaseConfig],
-    exports: [DatabaseConfig]
+    providers: [TypeOrmConfigService],
+    exports: [TypeOrmConfigService]
 })
 export class ConfigModule { }
