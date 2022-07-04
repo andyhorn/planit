@@ -41,7 +41,9 @@ export class RoomsGateway implements OnGatewayDisconnect {
 
     socket.join(room.code);
     socket.to(room.code).emit(constants.events.NEW_USER, GetUserDto.fromUser(user));
-    socket.emit(constants.events.ALL_MESSAGES, room.users.map(user => user.messages || []).reduce((messages, userMessages) => [...messages, ...userMessages], []));
+
+    const allMessages = await this.roomsService.getAllMessages(room.id);
+    socket.emit(constants.events.ALL_MESSAGES, allMessages);
   }
 
   @SubscribeMessage(constants.events.SEND_MESSAGE)

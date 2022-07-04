@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Message } from 'src/messages/models/message.entity';
 import { Repository } from 'typeorm';
 import { CreateRoomDto } from '../models/create-room.dto';
 import { Room } from '../models/room.entity';
@@ -52,6 +53,14 @@ export class RoomsService {
         }
 
         return room;
+    }
+
+    public async getAllMessages(id: number): Promise<Message[]> {
+        const room = await this.findById(id);
+        const messages = room.users
+            .map(user => user.messages || [])
+            .reduce((collection, userMessages) => [...collection, ...userMessages], []);
+        return messages;
     }
 
     public async remove(id: number): Promise<void> {
