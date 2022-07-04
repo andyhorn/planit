@@ -3,14 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateRoomDto } from '../models/create-room.dto';
 import { Room } from '../models/room.entity';
-import { randomBytes } from 'crypto';
+import { RoomCodeService } from './room-code.service';
 
 @Injectable()
 export class RoomsService {
-    constructor(@InjectRepository(Room) private roomsRepository: Repository<Room>) { }
+    constructor(
+        @InjectRepository(Room) private roomsRepository: Repository<Room>,
+        private roomCodeService: RoomCodeService
+    ) { }
 
-    public create(createRoomDto: CreateRoomDto): Promise<Room> {
-        const code = this.generateCode();
+    public async create(createRoomDto: CreateRoomDto): Promise<Room> {
+        const code = await this.generateUniqueCode();
         const room = this.roomsRepository.create({
             code,
             name: createRoomDto.name
@@ -44,7 +47,15 @@ export class RoomsService {
         this.roomsRepository.remove(room);
     }
 
-    private generateCode(): string {
-        return randomBytes(16).toString('hex');
+    private async generateUniqueCode(): Promise<string> {
+        let code: string = '';
+        let isUnique: boolean;
+
+        do {
+            code = this.roomCodeService.generateCode();
+            isUnique = (await this.roomsRepository.countBy({ code })) === 0;
+        } while (!isUnique);
+
+        return code;
     }
 }

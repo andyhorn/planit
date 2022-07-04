@@ -3,10 +3,11 @@ import { DataSource, DataSourceOptions } from "typeorm";
 
 const defaultOptions: Partial<TypeOrmModuleOptions> = {
     synchronize: false,
-    migrations: ['**/migrations/**.ts'],
+    migrations: ['dist/migrations/**.js'],
+    migrationsRun: true
 };
 
-const createTypeOrmOptions = (): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> => {
+export const createTypeOrmOptions = (): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> => {
     switch (process.env.NODE_ENV) {
         case 'development':
             return makeDevelopmentOptions();
