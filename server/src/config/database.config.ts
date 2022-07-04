@@ -3,7 +3,7 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 @Injectable()
 export class DatabaseConfig {
-    public getConfig(entities: Type[]): TypeOrmModuleOptions {
+    public getConfig(): TypeOrmModuleOptions {
         const config: TypeOrmModuleOptions = {
             synchronize: false
         };
@@ -13,7 +13,7 @@ export class DatabaseConfig {
                 Object.assign(config, <Partial<TypeOrmModuleOptions>>{
                     type: 'sqlite',
                     database: 'db.dev.sqlite',
-                    entities,
+                    autoLoadEntities: true,
                     migrationsRun: true,
                 });
                 break;
@@ -21,7 +21,7 @@ export class DatabaseConfig {
                 Object.assign(config, <Partial<TypeOrmModuleOptions>>{
                     type: 'sqlite',
                     database: 'db.test.sqlite',
-                    entities,
+                    autoLoadEntities: true,
                     migrationsRun: true,
                 });
                 break;
