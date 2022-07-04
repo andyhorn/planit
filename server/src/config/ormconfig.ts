@@ -3,11 +3,7 @@ import { DataSource, DataSourceOptions } from "typeorm";
 
 const defaultOptions: Partial<TypeOrmModuleOptions> = {
     synchronize: false,
-    migrationsRun: true,
-    autoLoadEntities: true,
-    migrations: [
-        "migrations/*.js"
-    ],
+    migrations: ['**/migrations/**.ts'],
 };
 
 const createTypeOrmOptions = (): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> => {
@@ -28,6 +24,7 @@ const makeDevelopmentOptions = (): TypeOrmModuleOptions => {
         ...defaultOptions,
         type: 'sqlite',
         database: 'db.dev.sqlite',
+        entities: ['**/*.entity.js'],
     };
 }
 
@@ -36,6 +33,7 @@ const makeProductionOptions = (): TypeOrmModuleOptions => {
         ...defaultOptions,
         type: 'sqlite',
         database: 'db.test.sqlite',
+        entities: ['**/*.entity.ts'],
     };
 }
 
@@ -46,7 +44,8 @@ const makeTestOptions = (): TypeOrmModuleOptions => {
         url: process.env.DATABASE_URL,
         ssl: {
             rejectUnauthorized: false
-        }
+        },
+        entities: ['**/*.entity.js'],
     };
 }
 
