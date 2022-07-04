@@ -7,6 +7,9 @@ import { DatabaseConfig } from './config/database.config';
 import { User } from './users/models/user.entity';
 import { UsersModule } from './users/users.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { MessagesModule } from './messages/messages.module';
+import { Room } from './rooms/models/room.entity';
+import { Message } from './messages/models/message.entity';
 
 @Module({
   imports: [
@@ -18,11 +21,14 @@ import { RoomsModule } from './rooms/rooms.module';
       inject: [DatabaseConfig],
       useFactory: (databaseConfig: DatabaseConfig) =>
         databaseConfig.getConfig([
-          User
+          User,
+          Room,
+          Message
         ])
     }),
     UsersModule,
     RoomsModule,
+    MessagesModule,
   ],
 })
 export class AppModule { }
