@@ -16,6 +16,11 @@ export class User {
     @Column()
     email: string;
 
+    @Column({
+        nullable: true
+    })
+    socketId: string;
+
     @ManyToOne(() => Room, room => room.users, {
         nullable: true
     })
