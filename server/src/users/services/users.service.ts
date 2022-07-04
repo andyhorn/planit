@@ -21,10 +21,30 @@ export class UsersService {
     }
 
     public async find(id: number): Promise<User> {
-        const user = await this.usersRepository.findOneBy({ id });
+        const user = await this.usersRepository.findOne({
+            where: { id },
+            relations: {
+                room: true
+            }
+        });
 
         if (!user) {
             throw new NotFoundException(`No user with id: ${id}`);
+        }
+
+        return user;
+    }
+
+    public async findBySocket(socketId: string): Promise<User> {
+        const user = await this.usersRepository.findOne({
+            where: { socketId },
+            relations: {
+                room: true
+            }
+        });
+
+        if (!user) {
+            throw new NotFoundException(`No user with socket id: ${socketId}`);
         }
 
         return user;
