@@ -30,6 +30,12 @@ export class UsersService {
         return user;
     }
 
+    public async update(update: User): Promise<User> {
+        const user = await this.find(update.id);
+        Object.assign(user, update);
+        return this.usersRepository.save(user);
+    }
+
     public async remove(id: number): Promise<void> {
         const user = await this.find(id);
         await this.usersRepository.remove(user);
