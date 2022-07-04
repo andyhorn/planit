@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Room } from "src/rooms/models/room.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -13,4 +14,9 @@ export class User {
 
     @Column()
     email: string;
+
+    @ManyToOne(() => Room, room => room.users, {
+        nullable: true
+    })
+    room: Room;
 }
