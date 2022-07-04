@@ -23,7 +23,12 @@ export class RoomsService {
     }
 
     public async findById(id: number): Promise<Room> {
-        const room = await this.roomsRepository.findOneBy({ id });
+        const room = await this.roomsRepository.findOne({
+            relations: {
+                users: true,
+            },
+            where: { id }
+        });
 
         if (!room) {
             throw new NotFoundException(`No room with id: ${id}`);
@@ -33,7 +38,14 @@ export class RoomsService {
     }
 
     public async findByCode(code: string): Promise<Room> {
-        const room = await this.roomsRepository.findOneBy({ code });
+        const room = await this.roomsRepository.findOne({
+            where: {
+                code
+            },
+            relations: {
+                users: true
+            }
+        });
 
         if (!room) {
             throw new NotFoundException(`No room with code: ${code}`);

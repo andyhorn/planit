@@ -21,6 +21,6 @@ export class RoomsGateway {
 
     socket.join(room.code);
     socket.to(room.code).emit(constants.events.NEW_USER, GetUserDto.fromUser(user));
-    socket.emit(constants.events.ALL_MESSAGES, room.users.map(user => user.messages).reduce((messages, userMessages) => [...messages, ...userMessages], []));
+    socket.emit(constants.events.ALL_MESSAGES, room.users.map(user => user.messages || []).reduce((messages, userMessages) => [...messages, ...userMessages], []));
   }
 }
