@@ -24,7 +24,9 @@ export class UsersService {
         const user = await this.usersRepository.findOne({
             where: { id },
             relations: {
-                room: true
+                room: true,
+                availability: true,
+                messages: true
             }
         });
 
@@ -39,7 +41,9 @@ export class UsersService {
         const user = await this.usersRepository.findOne({
             where: { socketId },
             relations: {
-                room: true
+                room: true,
+                availability: true,
+                messages: true
             }
         });
 
