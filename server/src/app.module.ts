@@ -8,6 +8,7 @@ import { MessagesModule } from './messages/messages.module';
 import { TypeOrmConfigService } from './config/typeorm.service';
 import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
+import { AvailabilityModule } from './availability/availability.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { APP_PIPE } from '@nestjs/core';
     UsersModule,
     RoomsModule,
     MessagesModule,
+    AvailabilityModule,
   ],
   providers: [
     {
