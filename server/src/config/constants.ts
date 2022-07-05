@@ -1,11 +1,11 @@
 export const constants = {
     events: {
-        SEND_MESSAGE: 'send-message',
-        NEW_MESSAGE: 'new-message',
-        JOIN_ROOM: 'join-room',
-        NEW_USER: 'new-user',
-        ALL_MESSAGES: 'all-messages',
-        SET_AVAILABILITY: 'set-availability',
-        NEW_AVAILABILITY: 'new-availability'
+        messageFromClient: 'message-from-client',
+        messageToClient: 'message-to-client',
+        joinRoom: 'join-room',
+        newUser: 'new-user',
+        allMessages: 'all-messages',
+        availabilityFromClient: 'availability-from-client',
+        availabilityToClient: 'availability-to-client'
     }
 }

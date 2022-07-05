@@ -1,6 +1,8 @@
+import { Logger } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
+  OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
 } from '@nestjs/websockets';
@@ -14,13 +16,19 @@ import { AvailabilityService } from '../services/availability.service';
 @WebSocketGateway({
   namespace: '/api/v1/availability',
 })
-export class AvailabilityGateway {
+export class AvailabilityGateway implements OnGatewayInit {
+  private logger: Logger = new Logger('AvailabilityGateway');
+
   constructor(
     private usersService: UsersService,
     private availabilityService: AvailabilityService,
   ) { }
 
-  @SubscribeMessage(constants.events.SET_AVAILABILITY)
+  afterInit() {
+    this.logger.log('Initialized');
+  }
+
+  @SubscribeMessage(constants.events.availabilityFromClient)
   public async handleSetAvailability(
     @ConnectedSocket() socket: Socket,
     @MessageBody() setAvailabilityDto: SetAvailabilityDto,
@@ -29,6 +37,7 @@ export class AvailabilityGateway {
     let dto: NewAvailabilityDto;
 
     if (setAvailabilityDto.selected) {
+      this.logger.log(`Adding availability for user ${user.id} on ${setAvailabilityDto.date}`);
       const availability = await this.availabilityService.create({
         date: setAvailabilityDto.date,
         user: user,
@@ -40,11 +49,12 @@ export class AvailabilityGateway {
         setAvailabilityDto.date,
         user,
       );
+      this.logger.log(`Removing availability for user ${user.id} on ${availability.date}`);
       await this.availabilityService.remove(availability.id);
 
       dto = NewAvailabilityDto.removeAvailability(availability);
     }
 
-    socket.to(user.room.code).emit(constants.events.NEW_AVAILABILITY, dto);
+    socket.to(user.room.code).emit(constants.events.availabilityToClient, dto);
   }
 }
