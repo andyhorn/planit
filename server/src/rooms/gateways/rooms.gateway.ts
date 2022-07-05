@@ -37,6 +37,7 @@ export class RoomsGateway implements OnGatewayDisconnect {
 
     user.room = room;
     user.socketId = socket.id;
+    user.active = true;
     await this.usersService.update(user);
 
     socket.join(room.code);
