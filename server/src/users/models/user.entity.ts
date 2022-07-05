@@ -1,5 +1,6 @@
 import { Message } from "../../messages/models/message.entity";
 import { Room } from "../../rooms/models/room.entity";
+import { Availability } from "../../availability/models/availability.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -33,4 +34,7 @@ export class User {
 
     @OneToMany(() => Message, message => message.user)
     messages: Message[];
+
+    @OneToMany(() => Availability, availability => availability.user)
+    availability: Availability[];
 }
