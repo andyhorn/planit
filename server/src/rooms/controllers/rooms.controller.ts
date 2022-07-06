@@ -24,6 +24,7 @@ export class RoomsController {
         const room = await this.roomsService.findByCode(code);
         return <RoomDto>{
             code: code,
+            name: room.name,
             users: room.users.map(user => user.id)
         };
     }

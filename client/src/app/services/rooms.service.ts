@@ -15,4 +15,8 @@ export class RoomsService {
       name
     }) as Observable<Room>;
   }
+
+  public getRoomByCode(code: string): Observable<Room> {
+    return this.httpClient.get(`api/v1/rooms/${code}`) as Observable<Room>;
+  }
 }
