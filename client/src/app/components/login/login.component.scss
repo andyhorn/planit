@@ -1,0 +1,19 @@
+mat-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  width: 75%;
+  margin: auto;
+  padding-top: 55px;
+  display: flex;
+  justify-content: space-evenly;
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}

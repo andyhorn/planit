@@ -1,0 +1,66 @@
+<mat-toolbar color="secondary">
+  <h2 class="mat-h2">Login</h2>
+</mat-toolbar>
+
+<br />
+
+<div class="container">
+  <form #form="ngForm" class="form-fields-container">
+    <p>Enter your email</p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Email address</mat-label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          matInput
+          type="email"
+          required
+        />
+      </mat-form-field>
+    </p>
+    <p>Enter your name</p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>First name</mat-label>
+        <input
+          [(ngModel)]="firstName"
+          name="firstName"
+          matInput
+          type="text"
+          required
+        />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Last name</mat-label>
+        <input
+          [(ngModel)]="lastName"
+          name="lastName"
+          matInput
+          type="text"
+          required
+        />
+      </mat-form-field>
+    </p>
+  </form>
+  <div class="button-container">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onCreateRoom(form)"
+      [disabled]="form.invalid"
+    >
+      Create a Room
+    </button>
+    <button
+      mat-flat-button
+      color="accent"
+      (click)="onJoinRoom(form)"
+      [disabled]="form.invalid"
+    >
+      Join a Room
+    </button>
+  </div>
+</div>
