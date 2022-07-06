@@ -10,9 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { usersReducer } from './store/users/users.reducers';
 
 
 @NgModule({
@@ -32,7 +34,10 @@ import { HomeComponent } from './components/home/home.component';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    StoreModule.forRoot({}),
+    HttpClientModule,
+    StoreModule.forRoot({
+      user: usersReducer
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

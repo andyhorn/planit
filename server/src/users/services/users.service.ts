@@ -19,7 +19,6 @@ export class UsersService {
         this.logger.debug(createUserDto);
 
         const user = this.usersRepository.create({
-            email: createUserDto.email,
             firstName: createUserDto.firstName,
             lastName: createUserDto.lastName
         });

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { UsersService } from 'src/app/services/users.service';
+import { setUser } from 'src/app/store/users/users.actions';
 
 @Component({
   selector: 'app-login',
@@ -7,28 +11,38 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  public email: string = '';
   public firstName: string = '';
   public lastName: string = '';
 
-  constructor() { }
+  constructor(private usersService: UsersService, private store: Store, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  public onCreateRoom(form: NgForm) {
+  public async onCreateRoom(form: NgForm) {
     if (form.invalid) {
       return;
     }
 
-    console.log(form);
+    await this.createUser();
+    this.navigateToHome();
   }
 
-  public onJoinRoom(form: NgForm) {
+  public async onJoinRoom(form: NgForm) {
     if (form.invalid) {
       return;
     }
 
-    console.log(form);
+    await this.createUser();
+    this.navigateToHome();
+  }
+
+  private async createUser() {
+    const user = await this.usersService.create(this.firstName, this.lastName).toPromise();
+    this.store.dispatch(setUser({ user }));
+  }
+
+  private navigateToHome() {
+    this.router.navigateByUrl('/');
   }
 }
