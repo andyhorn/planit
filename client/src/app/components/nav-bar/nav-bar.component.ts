@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,7 +16,7 @@ export class NavBarComponent implements OnInit {
   public user$!: Observable<User>;
   public isLoggedIn$: Observable<boolean> = this.store.select(isLoggedIn);
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private router: Router) { }
 
   ngOnInit(): void {
     this.user$ = this.store.select((state: any) => state['user'].user);
@@ -23,5 +24,6 @@ export class NavBarComponent implements OnInit {
 
   public handleLogout() {
     this.store.dispatch(removeUser());
+    this.router.navigateByUrl('/login');
   }
 }
