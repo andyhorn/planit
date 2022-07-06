@@ -14,7 +14,7 @@ import { AvailabilityModule } from './availability/availability.module';
   imports: [
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: resolve(__dirname, 'client')
+      rootPath: resolve(__dirname, '..', '..', 'client', 'dist')
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
