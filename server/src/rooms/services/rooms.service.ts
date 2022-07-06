@@ -1,7 +1,7 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from 'src/messages/models/message.entity';
-import { Repository } from 'typeorm';
+import { EntityNotFoundError, Repository } from 'typeorm';
 import { CreateRoomDto } from '../models/create-room.dto';
 import { Room } from '../models/room.entity';
 import { RoomCodeService } from './room-code.service';
@@ -43,7 +43,7 @@ export class RoomsService {
 
         if (!room) {
             this.logger.error('Room not found');
-            throw new NotFoundException(`No room with ID: ${id}`);
+            throw new EntityNotFoundError(Room, { id });
         }
 
         this.logger.debug(room);
@@ -65,7 +65,7 @@ export class RoomsService {
 
         if (!room) {
             this.logger.error('Room not found');
-            throw new NotFoundException(`No room found with code: ${code}`);
+            throw new EntityNotFoundError(Room, { code });
         }
 
         this.logger.debug(room);

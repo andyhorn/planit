@@ -1,6 +1,6 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityNotFoundError, Repository } from 'typeorm';
 import { CreateUserDto } from '../models/create-user.dto';
 import { User } from '../models/user.entity';
 
@@ -43,7 +43,7 @@ export class UsersService {
 
         if (!user) {
             this.logger.error('User not found');
-            throw new NotFoundException(`No user with id: ${id}`);
+            throw new EntityNotFoundError(User, { id });
         }
 
         this.logger.verbose('User found');
@@ -66,7 +66,7 @@ export class UsersService {
 
         if (!user) {
             this.logger.error('User not found');
-            throw new NotFoundException(`No user with socket id: ${socketId}`);
+            throw new EntityNotFoundError(User, { socketId });
         }
 
         this.logger.debug(user);
