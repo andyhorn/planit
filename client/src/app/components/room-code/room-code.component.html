@@ -1,0 +1,9 @@
+<form>
+  <mat-form-field>
+    <mat-label>Enter room code</mat-label>
+    <input type="text" name="code" matInput [(ngModel)]="code" required />
+  </mat-form-field>
+  <button mat-button type="submit" color="primary" (click)="onClose()">
+    Go
+  </button>
+</form>

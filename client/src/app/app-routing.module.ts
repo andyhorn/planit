@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'room/:code',
     component: HomeComponent,
     canActivate: [
       AuthGuard
@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 

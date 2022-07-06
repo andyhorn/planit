@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { usersReducer } from './store/users/users.reducers';
 import { AuthGuard } from './guards/auth.guard';
+import { RoomNameComponent } from './components/room-name/room-name.component';
+import { RoomCodeComponent } from './components/room-code/room-code.component';
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { AuthGuard } from './guards/auth.guard';
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RoomNameComponent,
+    RoomCodeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +41,7 @@ import { AuthGuard } from './guards/auth.guard';
     MatInputModule,
     FormsModule,
     HttpClientModule,
+    MatDialogModule,
     StoreModule.forRoot({
       user: usersReducer
     }),
