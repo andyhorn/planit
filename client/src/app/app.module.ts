@@ -15,6 +15,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { usersReducer } from './store/users/users.reducers';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { usersReducer } from './store/users/users.reducers';
       user: usersReducer
     }),
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

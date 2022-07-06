@@ -1,6 +1,7 @@
 mat-toolbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   *:not(button) {
     margin: 0;
